@@ -116,5 +116,17 @@ namespace WpfHelloWolrd
 
             public static Info info = new Info();//创建静态对象
         }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
+
+        public void Read()
+        {
+            StreamReader file = File.OpenText("info.json");
+            JsonTextReader reader = new JsonTextReader(file);
+            JObject jsonObject = (JObject)JToken.ReadFrom(reader);
+            Info.info.time_start = (DateTime)jsonObject["time_start"];
+            Info.info.time_full = (DateTime)jsonObject["time_full"];
+            Info.info.lz_start = (double)jsonObject["lz_start"];
+            Info.info.lz_full = (double)jsonObject["lz_full"];
+            //test
+        }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
     }
 }
