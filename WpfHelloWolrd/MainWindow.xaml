@@ -10,6 +10,7 @@
         ShowInTaskbar="True"
         Topmost="True"
         Icon="/理智.png" Closed="Window_Closed"
+        WindowStartupLocation="CenterScreen"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -22,7 +23,7 @@
             <!--行数-->
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Background="#FF2196F3" FontSize="17" Foreground="White" FontWeight="Medium" Click="Button_Click" BorderBrush="#FF2A608B">
+        <Button Grid.Column="0" Grid.Row="0" Background="#FF262193" FontSize="17" Foreground="White" FontWeight="Medium" Click="Button_Click" BorderBrush="#FF2A608B">
             理智管理
         </Button>
         
@@ -39,14 +40,14 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <ProgressBar Height="20" Width="250"  Value="100" Grid.Column="0" Grid.Row="0" Margin="10"
-                             Background="#FF2B2B2B" Foreground="#FF262193">
+                <ProgressBar Name ="PB_1" Height="50" Width="270"  Value="100" Grid.Column="0" Grid.Row="0" Margin="0 5 0 5"
+                             Background="#FF2B2B2B" Foreground="#FF2196F3" BorderBrush="{x:Null}">
                 </ProgressBar><!-- 进度条 -->
 
                 <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Foreground="White" Name="lizhi_now"/>
-                    <TextBlock Foreground="White">/</TextBlock>
-                    <TextBlock Foreground="White" Name="lizhi_full"></TextBlock>
+                    <TextBlock Foreground="White" FontSize="25" Name="lizhi_now"/>
+                    <TextBlock Foreground="White" FontSize="25">/</TextBlock>
+                    <TextBlock Foreground="White" FontSize="25" Name="lizhi_full"></TextBlock>
                 </WrapPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Center">

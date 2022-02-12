@@ -55,13 +55,7 @@ namespace WpfHelloWolrd
 
         public void ShowCurLz(object sender, EventArgs e)
         {
-            lizhi_now.Text = Convert.ToString(Info.info.lz_start + Math.Floor((double)((DateTime.Now - Info.info.time_start).TotalMinutes / 6)));
-            lizhi_full.Text = Convert.ToString(Info.info.lz_full);
-            TimeSpan ts1 = Info.info.time_full.Subtract(DateTime.Now);
-            last_time.Text = " " + ts1.Days.ToString() + " 天 "
-                            + ts1.Hours.ToString() + " 小时 "
-                            + ts1.Minutes.ToString() + " 分钟 ";
-            time_test.Text = (Info.info.time_full).ToString(" dd 日 HH 点 mm 分");
+            Cal_Lz();
         }
 
         public void Cal_Lz()
@@ -79,6 +73,8 @@ namespace WpfHelloWolrd
                             + ts1.Hours.ToString() + " 小时 "
                             + ts1.Minutes.ToString() + " 分钟 ";
             time_test.Text = (Info.info.time_full).ToString(" dd 日 HH 点 mm 分");
+
+            PB_1.Value = Info.info.lz_start / Info.info.lz_full * 100;
         }
 
 

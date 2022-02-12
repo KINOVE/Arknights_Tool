@@ -1,6 +1,6 @@
 {
-  "time_start": "",
-  "time_full": "",
-  "lz_start": "",
-  "lz_full": ""
+  "time_start": "2000-01-02T00:00:00",
+  "time_full": "2000-01-02T00:10:00",
+  "lz_start": "0",
+  "lz_full": "133"
 }
