@@ -29,12 +29,15 @@ namespace WpfHelloWolrd
         public MainWindow()
         {
             InitializeComponent();
+            Read();
             showtimer = new DispatcherTimer();//实例化
             showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
             showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
             showtimer.Interval = new TimeSpan(0, 0, 3, 0);//控制时间六分钟跳动一次
         }
 
+        
+        
         //声明计时器
         private DispatcherTimer showtimer;
 
@@ -114,7 +117,9 @@ namespace WpfHelloWolrd
             public double lz_start; //初始理智
             public double lz_full;  //理智上限
 
-            public static Info info = new Info();//创建静态对象
+            //创建静态对象
+            public static Info info = new Info();
+
         }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
 
         public void Read()
@@ -126,6 +131,7 @@ namespace WpfHelloWolrd
             Info.info.time_full = (DateTime)jsonObject["time_full"];
             Info.info.lz_start = (double)jsonObject["lz_start"];
             Info.info.lz_full = (double)jsonObject["lz_full"];
+
             //test
         }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
 
@@ -134,6 +140,11 @@ namespace WpfHelloWolrd
             //返回缩进的 Json 字符串
             string output = JsonConvert.SerializeObject(Info.info, Formatting.Indented);
             File.WriteAllText("info.json", output); //输出json内容到info.json
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Write();
         }
     }
 }

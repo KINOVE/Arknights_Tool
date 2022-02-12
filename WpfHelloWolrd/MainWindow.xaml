@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="True"
         Topmost="True"
-        Icon="/理智.png"
+        Icon="/理智.png" Closed="Window_Closed"
         >
     <Grid>
         <Grid.ColumnDefinitions>
