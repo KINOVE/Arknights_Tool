@@ -128,5 +128,12 @@ namespace WpfHelloWolrd
             Info.info.lz_full = (double)jsonObject["lz_full"];
             //test
         }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
+
+        public void Write()
+        {
+            //返回缩进的 Json 字符串
+            string output = JsonConvert.SerializeObject(Info.info, Formatting.Indented);
+            File.WriteAllText("info.json", output); //输出json内容到info.json
+        }
     }
 }
