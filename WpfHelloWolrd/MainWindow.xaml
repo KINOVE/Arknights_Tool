@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHelloWolrd"
         mc:Ignorable="d"
-        Title="Arknights_Tool_Kit" Height="180" Width="220"
+        Title="Arknights_Tool_Kit" Height="180" Width="270"
         ResizeMode="NoResize"
         ShowInTaskbar="True"
         Topmost="True"
-        Icon="/理智.png" Loaded="Window_Loaded"
+        Icon="/理智.png"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,13 +39,12 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <ProgressBar Height="20" Width="200"  Value="100" Grid.Column="0" Grid.Row="0" Margin="10"
+                <ProgressBar Height="20" Width="250"  Value="100" Grid.Column="0" Grid.Row="0" Margin="10"
                              Background="#FF2B2B2B" Foreground="#FF262193">
                 </ProgressBar><!-- 进度条 -->
 
                 <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Foreground="White" Name="lizhi_now" 
-                               DataContextChanged="lizhi_now_DataContextChanged"></TextBlock>
+                    <TextBlock Foreground="White" Name="lizhi_now"/>
                     <TextBlock Foreground="White">/</TextBlock>
                     <TextBlock Foreground="White" Name="lizhi_full"></TextBlock>
                 </WrapPanel>
