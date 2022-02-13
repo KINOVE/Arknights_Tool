@@ -60,5 +60,10 @@ namespace WpfHelloWolrd
             //upper_limit.Text = ConfigurationManager.AppSettings["upper_limit"]; //读取配置文件中的理智上限
             upper_limit.Text = Convert.ToString(MainWindow.Info.info.lz_full);
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

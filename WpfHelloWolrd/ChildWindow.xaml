@@ -5,47 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHelloWolrd"
         mc:Ignorable="d"
-        Title="Arknights_Tool_Kit" Height="140" Width="237"
+        Title="Arknights_Tool_Kit" Height="50" Width="552"
         ResizeMode="NoResize"
         ShowInTaskbar="True"
         Topmost="True" Loaded="Window_Loaded"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        FontFamily="SourceHanSansCN-Regular"
+        Background="Black"
         >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70px"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
             <!--列数-->
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="40px"/>
-            <!--行数-->
-        </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Background="#2196f3" FontSize="13" Foreground="White" FontWeight="Medium"
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            当前
-        </Label>
-
-        <TextBox Name="now" Grid.Column="1" Grid.Row="0" Background="#121212" FontSize="13" 
+        <WrapPanel Grid.Column="0" Margin="7" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Name="now" Background="#121212" 
+                     FontSize="{Binding Path=FontSize,ElementName=upper_limit}" Width="{Binding Path=Width,ElementName=upper_limit}"
+                     Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            </TextBox>
+            <TextBlock Margin="10 0" Foreground="White" FontSize="{Binding Path=FontSize,ElementName=upper_limit}">/</TextBlock>
+            <TextBox Name="upper_limit" Background="#121212" FontSize="20" Width="110"
                  Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-        </TextBox>
+            </TextBox>
+        </WrapPanel>
 
-        <Label Grid.Column="0" Grid.Row="1" Background="#007acc" FontSize="13" Foreground="White" FontWeight="Medium"
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-            上限
-        </Label>
-        
-        <TextBox Name="upper_limit" Grid.Column="1" Grid.Row="1" Background="#121212" FontSize="13" 
-                 Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-        </TextBox>
-
-        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Background="#363636" FontSize="13" 
-                Foreground="White" FontWeight="Medium" Click="Button_Click">
-            确认更改
+        <Button Grid.Column="1" Background="#FF2196F3" FontSize="13" Style="{StaticResource MyButton}"
+                Foreground="White" FontWeight="Medium" Click="Button_Click" Margin="11">
+            Calculate
         </Button>
-        <!--<Image Source="/理智.png" Width="90px" HorizontalAlignment="Left"></Image>-->
-        
+
+        <Button Grid.Column="2" Background="#6D1111" FontSize="13" Style="{StaticResource MyButton}"
+                Foreground="White" FontWeight="Medium" Click="Button_Click_1" Margin="11">
+            Close
+        </Button>
     </Grid>
 </Window>

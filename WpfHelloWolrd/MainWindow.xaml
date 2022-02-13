@@ -5,64 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHelloWolrd"
         mc:Ignorable="d"
-        Title="Arknights_Tool_Kit" Height="180" Width="270"
+        Title="Arknights_Tool_Kit" Height="110" Width="582"
         ResizeMode="NoResize"
         ShowInTaskbar="True"
         Topmost="True"
         Icon="/理智.png" Closed="Window_Closed"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseMove="Mouse_MouseMove"
+        FontFamily="SourceHanSansCN-Regular"
         >
     <Grid>
-        <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions><!--列数-->
             <ColumnDefinition/>
-            <!--列数-->
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height ="40"/>
+        <Grid.RowDefinitions><!--行数-->
             <RowDefinition />
-            <!--行数-->
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0" Background="#FF262193" FontSize="17" Foreground="White" FontWeight="Medium" Click="Button_Click" BorderBrush="#FF2A608B">
-            理智管理
-        </Button>
-        
-        
-        <!--<Image Source="/理智.png" Width="90px" HorizontalAlignment="Left"></Image>-->
-
-        <WrapPanel Grid.Column="0" Grid.Row="1" Background="#121212">
+        <StackPanel Grid.Column="0" Grid.Row="0" Background="Black"/>
+        <StackPanel Grid.Column="0" Grid.Row="0" Margin="25 20 25 0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
 
-                <ProgressBar Name ="PB_1" Height="50" Width="270"  Value="100" Grid.Column="0" Grid.Row="0" Margin="0 5 0 5"
-                             Background="#FF2B2B2B" Foreground="#FF2196F3" BorderBrush="{x:Null}">
-                </ProgressBar><!-- 进度条 -->
-
-                <WrapPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Foreground="White" FontSize="25" Name="lizhi_now"/>
-                    <TextBlock Foreground="White" FontSize="25">/</TextBlock>
-                    <TextBlock Foreground="White" FontSize="25" Name="lizhi_full"></TextBlock>
+                <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Foreground="White" FontSize="18" x:Name="last_time">*****</TextBlock>
                 </WrapPanel>
-
-                <StackPanel Grid.Column="0" Grid.Row="1"  HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 5">
-                        <TextBlock Foreground="White">预计在</TextBlock>
-                        <TextBlock Foreground="White" x:Name="last_time">*****</TextBlock>
-                        <TextBlock Foreground="White">后补满</TextBlock>
+                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource Lz_Change}" Click="Button_Click">
+                    <WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
+                        <TextBlock Foreground="White" FontSize="25" Name="lizhi_now"/>
+                        <TextBlock Foreground="White" FontSize="25">/</TextBlock>
+                        <TextBlock Foreground="White" FontSize="25" Name="lizhi_full"></TextBlock>
                     </WrapPanel>
-                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12 10">
-                        <TextBlock Foreground="White">即</TextBlock>
-                        <!--仅供测试-->
-                        <TextBlock Foreground="White" x:Name="time_test">xx:xx</TextBlock>
-                    </WrapPanel>
-                </StackPanel>
+                </Button>
             </Grid>
-        </WrapPanel>
+            <ProgressBar Name ="PB_1" Height="7" Value="80" Grid.Column="0" Grid.Row="0" Margin="0 6"
+                             Background="#FF2B2B2B" Foreground="#FF262193" BorderBrush="{x:Null}">
+            </ProgressBar>
+            
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3">
+                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">将于</TextBlock>
+                <TextBlock Foreground="#9E9E9E" FontSize="14" x:Name="time_test">xx:xx</TextBlock>
+                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">完全恢复</TextBlock>
+            </WrapPanel>
+            <!-- 进度条 -->
+        </StackPanel>
+
+        <Button Grid.Column="1" Grid.Row="1" Background="#6D1111" Click="Button_Click_1" Style="{StaticResource MyButton}" Foreground="{x:Null}" >
+            <Image Source="关闭.png"></Image>
+        </Button>
     </Grid>
 </Window>

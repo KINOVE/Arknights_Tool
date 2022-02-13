@@ -30,6 +30,7 @@ namespace WpfHelloWolrd
         {
             InitializeComponent();
             Read();
+            Cal_Lz();
             showtimer = new DispatcherTimer();//实例化
             showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
             showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
@@ -69,10 +70,26 @@ namespace WpfHelloWolrd
             lizhi_now.Text = Convert.ToString(Info.info.lz_start + Math.Floor((double)((DateTime.Now - Info.info.time_start).TotalMinutes / 6)));
             lizhi_full.Text = Convert.ToString(Info.info.lz_full);
             TimeSpan ts1 = Info.info.time_full.Subtract(DateTime.Now);
-            last_time.Text = " " + ts1.Days.ToString() + " 天 "
+            if( ts1.Days == 0)
+            {
+                last_time.Text = ts1.Hours.ToString() + " 小时 "
+                            + ts1.Minutes.ToString() + " 分钟 ";
+            }
+            else
+            {
+                last_time.Text = " " + ts1.Days.ToString() + " 天 "
                             + ts1.Hours.ToString() + " 小时 "
                             + ts1.Minutes.ToString() + " 分钟 ";
-            time_test.Text = (Info.info.time_full).ToString(" dd 日 HH 点 mm 分");
+            }
+            if( Info.info.time_full.Day == DateTime.Now.Day)
+            {
+                time_test.Text = (Info.info.time_full).ToString(" HH:mm ");
+            }
+            else
+            {
+                time_test.Text = (Info.info.time_full).ToString(" 明天 HH:mm ");
+            }
+            
 
             PB_1.Value = Info.info.lz_start / Info.info.lz_full * 100;
         }
@@ -99,9 +116,9 @@ namespace WpfHelloWolrd
             //childWindow.WindowStartupLocation = WindowStartupLocation.Manual;
             ChildWindow childWindow = new ChildWindow();
             childWindow.getLizhi = GetNow;
-            childWindow.Left = 200 + this.Left;
-            childWindow.Top = this.Top;
-            childWindow.Show();
+            childWindow.Left = this.Left;
+            childWindow.Top = 115 + this.Top;
+            childWindow.ShowDialog();
 
         }//【更改体力】按钮点击
 
@@ -141,6 +158,20 @@ namespace WpfHelloWolrd
         private void Window_Closed(object sender, EventArgs e)
         {
             Write();
+        }
+
+        //无边框时拖动
+        private void Mouse_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
