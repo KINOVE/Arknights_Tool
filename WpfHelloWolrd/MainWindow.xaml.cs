@@ -91,7 +91,7 @@ namespace WpfHelloWolrd
             }
             
 
-            PB_1.Value = Info.info.lz_start / Info.info.lz_full * 100;
+            PB_1.Value = Convert.ToDouble(lizhi_now.Text) / Info.info.lz_full * 100;
         }
 
 
