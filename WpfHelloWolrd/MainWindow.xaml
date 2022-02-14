@@ -4,24 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfHelloWolrd"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         Title="Arknights_Tool_Kit" Height="110" Width="582"
         ResizeMode="NoResize"
-        ShowInTaskbar="True"
+        ShowInTaskbar="False"
         Topmost="True"
         Icon="/理智.png" Closed="Window_Closed"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="Manual"
         WindowStyle="None"
         AllowsTransparency="True"
         MouseMove="Mouse_MouseMove"
         FontFamily="SourceHanSansCN-Regular"
         >
     <Grid>
-        <Grid.ColumnDefinitions><!--列数-->
+        <Grid.ColumnDefinitions>
+            <!--列数-->
             <ColumnDefinition/>
             <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions><!--行数-->
+        <Grid.RowDefinitions>
+            <!--行数-->
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -47,7 +50,7 @@
             <ProgressBar Name ="PB_1" Height="7" Value="80" Grid.Column="0" Grid.Row="0" Margin="0 6"
                              Background="#FF2B2B2B" Foreground="#FF262193" BorderBrush="{x:Null}">
             </ProgressBar>
-            
+
             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3">
                 <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">将于</TextBlock>
                 <TextBlock Foreground="#9E9E9E" FontSize="14" x:Name="time_test">xx:xx</TextBlock>
@@ -59,5 +62,23 @@
         <Button Grid.Column="1" Grid.Row="1" Background="#6D1111" Click="Button_Click_1" Style="{StaticResource MyButton}" Foreground="{x:Null}" >
             <Image Source="关闭.png"></Image>
         </Button>
+
+        <!--托盘程序-->
+        <hc:NotifyIcon x:Name="NotifyIconContextContent" 
+                   Text="理智管理小工具"
+                   Visibility="Visible"
+                   Icon="理智.png">
+            <hc:NotifyIcon.ContextMenu>
+                <ContextMenu>
+                    <!--MenuItem Command="hc:ControlCommands.PushMainWindow2Top" Header="没看懂"/-->
+                    <MenuItem Command="hc:ControlCommands.ShutdownApp" Header="关闭后台"/>
+                </ContextMenu>
+            </hc:NotifyIcon.ContextMenu>
+            <hc:Interaction.Triggers>
+                <hc:EventTrigger EventName="Click">
+                    <hc:EventToCommand Command="hc:ControlCommands.PushMainWindow2Top"/>
+                </hc:EventTrigger>
+            </hc:Interaction.Triggers>
+        </hc:NotifyIcon>
     </Grid>
 </Window>

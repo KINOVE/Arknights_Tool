@@ -2,8 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfHelloWolrd"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        
+        
         <Style x:Key="Lz_Change" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Cursor" Value="Hand" />
@@ -22,6 +25,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="MyButton" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Cursor" Value="Hand" />
@@ -40,5 +44,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <ResourceDictionary x:Key="Handy">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/SkinDefault.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/HandyControl;component/Themes/Theme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+        
     </Application.Resources>
+    
 </Application>

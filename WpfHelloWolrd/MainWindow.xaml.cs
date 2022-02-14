@@ -30,29 +30,17 @@ namespace WpfHelloWolrd
         {
             InitializeComponent();
             Read();
-            Cal_Lz();
+            Set_StartUpLocation();
             showtimer = new DispatcherTimer();//实例化
             showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
             showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
             showtimer.Interval = new TimeSpan(0, 0, 3, 0);//控制时间六分钟跳动一次
         }
 
-        
-        
+
+
         //声明计时器
         private DispatcherTimer showtimer;
-
-        /*
-        public void ShowCurTimer(object sender, EventArgs e)
-        {
-            //当配置文件内数据不为空时，才执行自动计算
-            if(ConfigurationManager.AppSettings["full_time"] != "")
-            {
-                time_test.Text = DateTime.Now.ToString("dd HH:mm:ss");
-            }
-
-        }//测试时间显示，已废弃
-        */
 
         public void ShowCurLz(object sender, EventArgs e)
         {
@@ -61,12 +49,7 @@ namespace WpfHelloWolrd
 
         public void Cal_Lz()
         {
-            /*
-            if (Info.info.is_start)
-            {
-                
-            }
-            */
+            
             lizhi_now.Text = Convert.ToString(Info.info.lz_start + Math.Floor((double)((DateTime.Now - Info.info.time_start).TotalMinutes / 6)));
             lizhi_full.Text = Convert.ToString(Info.info.lz_full);
             TimeSpan ts1 = Info.info.time_full.Subtract(DateTime.Now);
@@ -106,6 +89,7 @@ namespace WpfHelloWolrd
             double minutes = (Info.info.lz_full - Info.info.lz_start) * 6; //需要回复多少分钟
             Info.info.time_full = DateTime.Now.AddMinutes(minutes);
 
+            Write();
             Cal_Lz();
         }//更改进度条上的数值文字（委托方法）
         
@@ -171,7 +155,14 @@ namespace WpfHelloWolrd
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
+        }
+
+        public void Set_StartUpLocation()
+        {
+            var desktopWorkingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
+            this.Left = desktopWorkingArea.Right - this.Width - 5;
+            this.Top = desktopWorkingArea.Bottom - this.Height - 65;
         }
     }
 }

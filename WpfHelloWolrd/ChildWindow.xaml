@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Arknights_Tool_Kit" Height="50" Width="552"
         ResizeMode="NoResize"
-        ShowInTaskbar="True"
+        ShowInTaskbar="False"
         Topmost="True" Loaded="Window_Loaded"
         WindowStyle="None"
         AllowsTransparency="True"
