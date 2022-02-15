@@ -15,21 +15,23 @@ using System.Windows.Shapes;
 using System.Windows.Threading;//线程
 using System.Configuration;//配置文件
 
-namespace WpfHelloWolrd
+namespace Arknights_Tool
 {
+    /// <summary>
+    /// ChildWindow.xaml 的交互逻辑
+    /// </summary>
     public partial class ChildWindow : Window
     {
         public ChildWindow()
         {
             InitializeComponent();
-            
         }
 
         public delegate void GetLizhi(string value1, string value2);  //声明委托
         public GetLizhi getLizhi;                                   //委托对象
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(IsDig (now.Text) && IsDig(upper_limit.Text) && Convert.ToDouble(now.Text) < Convert.ToDouble(upper_limit.Text))
+            if (IsDig(now.Text) && IsDig(upper_limit.Text) && Convert.ToDouble(now.Text) < Convert.ToDouble(upper_limit.Text))
             {
                 getLizhi(now.Text, upper_limit.Text);
                 this.Close();

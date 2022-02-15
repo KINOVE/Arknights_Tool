@@ -19,7 +19,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;//读写Json
 using System.IO;
 
-namespace WpfHelloWolrd
+namespace Arknights_Tool
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -38,7 +38,6 @@ namespace WpfHelloWolrd
         }
 
 
-
         //声明计时器
         private DispatcherTimer showtimer;
 
@@ -49,11 +48,11 @@ namespace WpfHelloWolrd
 
         public void Cal_Lz()
         {
-            
+
             lizhi_now.Text = Convert.ToString(Info.info.lz_start + Math.Floor((double)((DateTime.Now - Info.info.time_start).TotalMinutes / 6)));
             lizhi_full.Text = Convert.ToString(Info.info.lz_full);
             TimeSpan ts1 = Info.info.time_full.Subtract(DateTime.Now);
-            if( ts1.Days == 0)
+            if (ts1.Days == 0)
             {
                 last_time.Text = ts1.Hours.ToString() + " 小时 "
                             + ts1.Minutes.ToString() + " 分钟 ";
@@ -64,7 +63,7 @@ namespace WpfHelloWolrd
                             + ts1.Hours.ToString() + " 小时 "
                             + ts1.Minutes.ToString() + " 分钟 ";
             }
-            if( Info.info.time_full.Day == DateTime.Now.Day)
+            if (Info.info.time_full.Day == DateTime.Now.Day)
             {
                 time_test.Text = (Info.info.time_full).ToString(" HH:mm ");
             }
@@ -72,7 +71,7 @@ namespace WpfHelloWolrd
             {
                 time_test.Text = (Info.info.time_full).ToString(" 明天 HH:mm ");
             }
-            
+
 
             PB_1.Value = Convert.ToDouble(lizhi_now.Text) / Info.info.lz_full * 100;
         }
@@ -80,19 +79,26 @@ namespace WpfHelloWolrd
 
         public void GetNow(string value1, string value2)
         {
-            lizhi_now.Text = value1;//将数字转为double ----> Convert.ToString(value1)
-            lizhi_full.Text = value2;
+            try
+            {
+                lizhi_now.Text = value1;//将数字转为double ----> Convert.ToString(value1)
+                lizhi_full.Text = value2;
 
-            Info.info.lz_start = Convert.ToDouble(value1);
-            Info.info.lz_full = Convert.ToDouble(value2);
-            Info.info.time_start = DateTime.Now;
-            double minutes = (Info.info.lz_full - Info.info.lz_start) * 6; //需要回复多少分钟
-            Info.info.time_full = DateTime.Now.AddMinutes(minutes);
+                Info.info.lz_start = Convert.ToDouble(value1);
+                Info.info.lz_full = Convert.ToDouble(value2);
+                Info.info.time_start = DateTime.Now;
+                double minutes = (Info.info.lz_full - Info.info.lz_start) * 6; //需要回复多少分钟
+                Info.info.time_full = DateTime.Now.AddMinutes(minutes);
 
-            Write();
-            Cal_Lz();
+                Write();
+                Cal_Lz();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("发生异常 " + ex.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }//更改进度条上的数值文字（委托方法）
-        
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -106,13 +112,13 @@ namespace WpfHelloWolrd
 
         }//【更改体力】按钮点击
 
-        
+
         public class Info
         {
-            public DateTime time_start; //记录时间
-            public DateTime time_full;  //回满时间
-            public double lz_start; //初始理智
-            public double lz_full;  //理智上限
+            public DateTime time_start = Convert.ToDateTime("2022-02-15T14:52:13.7122306+08:00"); //记录时间
+            public DateTime time_full = Convert.ToDateTime("2022-02-16T02:52:13.7122337+08:00");  //回满时间
+            public double lz_start = 1.0; //初始理智
+            public double lz_full = 133.0;  //理智上限
 
             //创建静态对象
             public static Info info = new Info();
@@ -121,14 +127,24 @@ namespace WpfHelloWolrd
 
         public void Read()
         {
-            StreamReader file = File.OpenText("info.json");
-            JsonTextReader reader = new JsonTextReader(file);
-            JObject jsonObject = (JObject)JToken.ReadFrom(reader);
-            Info.info.time_start = (DateTime)jsonObject["time_start"];
-            Info.info.time_full = (DateTime)jsonObject["time_full"];
-            Info.info.lz_start = (double)jsonObject["lz_start"];
-            Info.info.lz_full = (double)jsonObject["lz_full"];
+            if (!File.Exists("info.json"))
+            {
+                File.Create("info.json").Close();
+                Write();
+            }
+            else
+            {
+                StreamReader file = File.OpenText("info.json");
+                JsonTextReader reader = new JsonTextReader(file);
+                JObject jsonObject = (JObject)JToken.ReadFrom(reader);
+                Info.info.time_start = (DateTime)jsonObject["time_start"];
+                Info.info.time_full = (DateTime)jsonObject["time_full"];
+                Info.info.lz_start = (double)jsonObject["lz_start"];
+                Info.info.lz_full = (double)jsonObject["lz_full"];
 
+                file.Close();
+            }
+            
             //test
         }//负责存储【记录时间】【回满时间】【初始理智】【理智上限】
 
@@ -137,6 +153,7 @@ namespace WpfHelloWolrd
             //返回缩进的 Json 字符串
             string output = JsonConvert.SerializeObject(Info.info, Formatting.Indented);
             File.WriteAllText("info.json", output); //输出json内容到info.json
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
