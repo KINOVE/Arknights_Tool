@@ -36,7 +36,9 @@
                 </Grid.ColumnDefinitions>
 
                 <WrapPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock Foreground="White" FontSize="18" x:Name="last_time">*****</TextBlock>
+                    <Image Source="Resources/caution.png" Width="20" Visibility="Collapsed" x:Name="caution_img"></Image>
+                    <TextBlock Foreground="Yellow" FontSize="18" x:Name="caution" Visibility="Collapsed"> 理智已满！</TextBlock>
+                    <TextBlock Foreground="White" FontSize="18" x:Name="last_time" Visibility="Visible">*****</TextBlock>
                 </WrapPanel>
                 <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource Lz_Change}" Click="Button_Click" Cursor="Hand">
                     <WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
@@ -51,7 +53,7 @@
             </ProgressBar>
 
             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3">
-                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">将于</TextBlock>
+                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14" Name="caution_text">将于</TextBlock>
                 <TextBlock Foreground="#9E9E9E" FontSize="14" x:Name="time_test">xx:xx</TextBlock>
                 <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">完全恢复</TextBlock>
             </WrapPanel>
