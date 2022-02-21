@@ -5,11 +5,16 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>lz.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\caution.png" />
     <None Remove="Resources\理智_1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lz.ico" />
   </ItemGroup>
 
   <ItemGroup>
