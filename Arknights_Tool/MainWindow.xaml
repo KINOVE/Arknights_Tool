@@ -70,6 +70,7 @@
         <hc:NotifyIcon x:Name="NotifyIconContextContent" 
                    Text="理智管理小工具"
                    Visibility="Visible"
+                   Icon="Resources/理智_1.png"
                    >
             <hc:NotifyIcon.ContextMenu>
                 <ContextMenu>

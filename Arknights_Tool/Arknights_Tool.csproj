@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Resources\caution.png" />
+    <None Remove="Resources\理智_1.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\caution.png" />
+    <Resource Include="Resources\理智_1.png" />
   </ItemGroup>
 
   <ItemGroup>
