@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;//读写Json
 using System.IO;
+using Windows.UI.Notifications;//调用win10通知
 
 namespace Arknights_Tool
 {
@@ -34,9 +35,10 @@ namespace Arknights_Tool
             showtimer = new DispatcherTimer();//实例化
             showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
             showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
-            showtimer.Interval = new TimeSpan(0, 0, 3, 0);//控制时间六分钟跳动一次
-        }
+            showtimer.Interval = new TimeSpan(0, 0, 5, 50);//控制时间六分钟跳动一次
 
+        }
+        
 
         //声明计时器
         private DispatcherTimer showtimer;
@@ -48,7 +50,6 @@ namespace Arknights_Tool
 
         public void Cal_Lz()    //计算剩余理智
         {
-
             lizhi_now.Text = Convert.ToString(Info.info.lz_start + Math.Floor((double)((DateTime.Now - Info.info.time_start).TotalMinutes / 6)));
             lizhi_full.Text = Convert.ToString(Info.info.lz_full);
             TimeSpan ts1 = Info.info.time_full.Subtract(DateTime.Now);
@@ -59,6 +60,7 @@ namespace Arknights_Tool
                 caution.Visibility = Visibility.Visible;    //打开警告文字显示
                 last_time.Visibility = Visibility.Collapsed;    //关闭正常文字显示
                 caution_text.Text = "已于";
+                WindowsNotification(" 警告 : 理智已回满");
             }
             else //如果没有回满
             {
@@ -195,6 +197,25 @@ namespace Arknights_Tool
             var desktopWorkingArea = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea;
             this.Left = desktopWorkingArea.Right - this.Width - 5;
             this.Top = desktopWorkingArea.Bottom - this.Height - 65;
+        }
+
+        public void WindowsNotification(String Info_full)       //弹出消息中心提示
+        {
+            //他奶奶的，有bug，不用HandyControl了
+            //HandyControl.Controls.Growl.WarningGlobal("Nop");
+
+
+            var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+            //toastXml.GetXml();
+            var node = toastXml.GetElementsByTagName("text")[0];
+            var text = toastXml.CreateTextNode(Info_full);
+            node.AppendChild(text);
+            var xmlstr = toastXml.GetXml();
+            // 创建并初始化 ToastNotification 的新实例
+            var notification = new ToastNotification(toastXml);
+            // 创建通知对象
+            var toastNotifier = ToastNotificationManager.CreateToastNotifier("理智管理小工具");
+            toastNotifier.Show(notification);
         }
     }
 }
