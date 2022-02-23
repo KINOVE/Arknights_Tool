@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;//读写Json
 using System.IO;
 using Windows.UI.Notifications;//调用win10通知
+using System.Diagnostics;
 
 namespace Arknights_Tool
 {
@@ -37,6 +38,7 @@ namespace Arknights_Tool
             showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
             showtimer.Interval = new TimeSpan(0, 0, 5, 50);//控制时间六分钟跳动一次
 
+            
         }
         
 
@@ -120,6 +122,9 @@ namespace Arknights_Tool
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //测试
+            Adb.adb.StartAdb();
+
             //childWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //childWindow.WindowStartupLocation = WindowStartupLocation.Manual;
             ChildWindow childWindow = new ChildWindow();
@@ -216,6 +221,67 @@ namespace Arknights_Tool
             // 创建通知对象
             var toastNotifier = ToastNotificationManager.CreateToastNotifier("理智管理小工具");
             toastNotifier.Show(notification);
+        }
+
+        public class Adb
+        {
+
+            public static string Execute(string command)  //调用cmd
+            {
+                var processInfo = new ProcessStartInfo("cmd.exe", "/S /C" + " Adb/adb.exe " + command)
+                {
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    RedirectStandardOutput = true
+                };
+
+                var process = new Process { StartInfo = processInfo };
+                process.Start();
+                var output = process.StandardOutput.ReadToEnd();
+
+                process.WaitForExit();
+                return output;
+            }
+
+            public void StartAdb()//调用ADB进行截图
+            {
+                try
+                {
+                    //new Process对象
+                    Process p = new Process();
+
+                    //获取根目录绝对路径
+                    //String path1 = Environment.CurrentDirectory + "Adb\\adb.exe";
+
+                    //设置属性
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.CreateNoWindow = true;
+                    p.StartInfo.FileName = "cmd.exe";
+                    p.StartInfo.RedirectStandardError = true;
+                    p.StartInfo.RedirectStandardInput = true;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    String path = "Adb\\adb.exe";
+                    String shell = " shell ";
+                    String pull = " pull ";
+                    String command = path + shell + "/system/bin/screencap -p /sdcard/screenshot.png"
+                             + "&" + path + pull + "/sdcard/screenshot.png Adb\\screenshot.png";
+                    p.StartInfo.Arguments = "/c" + command;
+
+                    //开启process线程
+                    p.Start();
+                    p.WaitForExit();
+                    p.Close();
+                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+            }
+
+            public static Adb adb = new Adb();
         }
     }
 }

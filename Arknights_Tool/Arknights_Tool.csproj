@@ -5,15 +5,26 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
-    <ApplicationIcon>lz.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Adb\adb.exe" />
+    <None Remove="Adb\AdbWinApi.dll" />
+    <None Remove="Adb\AdbWinUsbApi.dll" />
     <None Remove="Resources\caution.png" />
     <None Remove="Resources\理智_1.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Adb\adb.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Adb\AdbWinApi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Adb\AdbWinUsbApi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="lz.ico" />
   </ItemGroup>
 
