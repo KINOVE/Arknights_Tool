@@ -123,7 +123,7 @@ namespace Arknights_Tool
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //测试
-            Adb.adb.StartAdb();
+            //Adb.adb.StartAdb();
 
             //childWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //childWindow.WindowStartupLocation = WindowStartupLocation.Manual;
