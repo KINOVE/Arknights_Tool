@@ -1,4 +1,4 @@
-# Arknighs_Tool
+# Arknights_Tool
 很烂的理智计算小工具
 
 ## 界面预览
