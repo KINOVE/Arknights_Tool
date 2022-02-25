@@ -196,10 +196,6 @@ namespace Arknights_Tool
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)   //关闭窗口按钮
-        {
-            this.Hide();
-        }
 
         public void Set_StartUpLocation()   //设置窗口启动初始位置
         {
@@ -229,24 +225,6 @@ namespace Arknights_Tool
 
         public class Adb
         {
-
-            public static string Execute(string command)  //调用cmd
-            {
-                var processInfo = new ProcessStartInfo("cmd.exe", "/S /C" + " Adb/adb.exe " + command)
-                {
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    RedirectStandardOutput = true
-                };
-
-                var process = new Process { StartInfo = processInfo };
-                process.Start();
-                var output = process.StandardOutput.ReadToEnd();
-
-                process.WaitForExit();
-                return output;
-            }
 
             public void StartAdb()//调用ADB进行截图
             {
