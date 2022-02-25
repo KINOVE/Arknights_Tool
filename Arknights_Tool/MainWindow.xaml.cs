@@ -34,13 +34,20 @@ namespace Arknights_Tool
     {
         public MainWindow()
         {
-            InitializeComponent();
-            Read();
-            Set_StartUpLocation();
-            showtimer = new DispatcherTimer();//实例化
-            showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
-            showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
-            showtimer.Interval = new TimeSpan(0, 0, 5, 50);//控制时间六分钟跳动一次
+            try
+            {
+                InitializeComponent();
+                Read();
+                Set_StartUpLocation();
+                showtimer = new DispatcherTimer();//实例化
+                showtimer.Tick += new EventHandler(ShowCurLz);//对应的每次触发的事件（计算用）
+                showtimer.Start();//开启时间，这里先开启，会直接刷新一次，然后再调整为六分钟刷新一次
+                showtimer.Interval = new TimeSpan(0, 0, 5, 50);//控制时间六分钟跳动一次
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             
         }
