@@ -12,6 +12,8 @@
     <None Remove="Adb\AdbWinApi.dll" />
     <None Remove="Adb\AdbWinUsbApi.dll" />
     <None Remove="Resources\caution.png" />
+    <None Remove="Resources\refresh.png" />
+    <None Remove="Resources\修理.png" />
     <None Remove="Resources\理智_1.png" />
   </ItemGroup>
 
@@ -26,16 +28,19 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="lz.ico" />
+    <Resource Include="Resources\修理.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HandyControl" Version="3.3.0" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="OpenCvSharp4" Version="4.5.5.20211231" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\caution.png" />
+    <Resource Include="Resources\refresh.png" />
     <Resource Include="Resources\理智_1.png" />
   </ItemGroup>
 

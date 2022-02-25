@@ -20,13 +20,14 @@ using Newtonsoft.Json.Converters;//读写Json
 using System.IO;
 using Windows.UI.Notifications;//调用win10通知
 using System.Diagnostics;
+using OpenCvSharp;
 
 namespace Arknights_Tool
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : System.Windows.Window
     {
         public MainWindow()
         {
@@ -282,6 +283,16 @@ namespace Arknights_Tool
             }
 
             public static Adb adb = new Adb();
+        }
+
+        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)  //双击隐藏窗口
+        {
+            this.Hide();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Arknights_Tool"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
-        Title="Arknights_Tool_Kit" Height="110" Width="582"
+        Title="Arknights_Tool_Kit" Height="110" Width="552"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         Topmost="True"
@@ -15,12 +15,14 @@
         WindowStyle="None"
         AllowsTransparency="True"
         MouseMove="Mouse_MouseMove"
-        FontFamily="SourceHanSansCN-Regular">
+        FontFamily="SourceHanSansCN-Regular"
+        Background="Transparent" MouseDoubleClick="Window_MouseDoubleClick"
+        >
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <!--列数-->
             <ColumnDefinition/>
-            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <!--行数-->
@@ -28,7 +30,7 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Background="Black"/>
+        <Border BorderThickness="1" BorderBrush="Gray"  Background="Black" CornerRadius="15,15,15,15"  ></Border>
         <StackPanel Grid.Column="0" Grid.Row="0" Margin="25 20 25 0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -41,8 +43,9 @@
                     <TextBlock Foreground="Yellow" FontSize="18" x:Name="caution" Visibility="Collapsed"> 理智已满！</TextBlock>
                     <TextBlock Foreground="White" FontSize="18" x:Name="last_time" Visibility="Visible">*****</TextBlock>
                 </WrapPanel>
-                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource Lz_Change}" Click="Button_Click" Cursor="Hand">
+                <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource Lz_Change}" Click="Button_Click_2" Cursor="Hand">
                     <WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
+                        <Image Source="Resources/refresh.png" Width="50" Height="25"></Image>
                         <TextBlock Foreground="White" FontSize="25" Name="lizhi_now"/>
                         <TextBlock Foreground="White" FontSize="25">/</TextBlock>
                         <TextBlock Foreground="White" FontSize="25" Name="lizhi_full"></TextBlock>
@@ -53,19 +56,26 @@
                              Background="#FF2B2B2B" Foreground="#FF262193" BorderBrush="{x:Null}">
             </ProgressBar>
 
-            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3">
-                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14" Name="caution_text">将于</TextBlock>
-                <TextBlock Foreground="#9E9E9E" FontSize="14" x:Name="time_test">xx:xx</TextBlock>
-                <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">完全恢复</TextBlock>
-            </WrapPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 3">
+                    <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14" Name="caution_text">将于</TextBlock>
+                    <TextBlock Foreground="#9E9E9E" FontSize="14" x:Name="time_test">xx:xx</TextBlock>
+                    <TextBlock Foreground="{Binding Path=Foreground,ElementName=time_test}" FontSize="14">完全恢复</TextBlock>
+                </WrapPanel>
+                <Button Grid.Column="1" Style="{StaticResource Lz_Change}" Click="Button_Click">
+                    <Image Source="Resources/修理.png" Width="25"></Image>
+                </Button>
+                
+            </Grid>
+            
             <!-- 进度条 -->
         </StackPanel>
 
-        <Button Grid.Column="1" Grid.Row="1" Background="#6D1111" Click="Button_Click_1" Style="{StaticResource MyButton}" Foreground="{x:Null}" >
 
-        </Button>
-
-        
         <!--托盘程序-->
         <hc:NotifyIcon x:Name="NotifyIconContextContent" 
                    Text="理智管理小工具"
