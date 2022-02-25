@@ -21,6 +21,9 @@ using System.IO;
 using Windows.UI.Notifications;//调用win10通知
 using System.Diagnostics;
 using OpenCvSharp;
+using PaddleOCRSharp;
+using Microsoft.Win32;
+using System.Drawing;
 
 namespace Arknights_Tool
 {
@@ -290,9 +293,94 @@ namespace Arknights_Tool
             this.Hide();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        public void PreCut(Mat src)//图片预先处理
         {
 
+            double Row_multi = src.Rows / 27.0;
+            double Col_multi = src.Cols / 48.0;
+
+            if (Row_multi != Col_multi)    //判断比例是否正确
+            {
+                MessageBox.Show("比例错误" + Row_multi + " " + Col_multi);
+            }
+            else
+            {
+                //MessageBox.Show("比例正确" + Row_multi + " " + Col_multi);
+
+                //---裁减图片---
+                //当前理智系数：28.5    5.1    4.8    3 
+
+                int x1 = Convert.ToInt32(Col_multi * 28.5),
+                    y1 = Convert.ToInt32(Row_multi * 5.1),
+                    x_range = Convert.ToInt32(Col_multi * 4.8),
+                    y_range = Convert.ToInt32(Row_multi * 3);
+                Mat result = new Mat(src, new OpenCvSharp.Rect(x1, y1, x_range, y_range));
+
+                //回满理智系数：31.4, 8.7, 1.5, 1
+                int x2 = Convert.ToInt32(Col_multi * 31.4),
+                    y2 = Convert.ToInt32(Row_multi * 8.7),
+                    x2_range = Convert.ToInt32(Col_multi * 1.5),
+                    y2_range = Convert.ToInt32(Row_multi * 1);
+                Mat result2 = new Mat(src, new OpenCvSharp.Rect(x2, y2, x2_range, y2_range));
+                //显示结果
+                //Cv2.ImShow("result", result);
+                //Cv2.ImShow("result2", result2);
+
+                //保存图片
+                Cv2.ImWrite("Adb\\cut_1.png", result);
+                Cv2.ImWrite("Adb\\cut_2.png", result2);
+            }
+        }
+
+        //启动OCR引擎和服务
+        public static OCRModelConfig config = null;
+        public static OCRParameter oCRParameter = new OCRParameter();
+        public static PaddleOCREngine engine = new PaddleOCREngine(config, oCRParameter);
+        public void Ocr(String filename, String filename2)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            OpenFileDialog ofd2 = new OpenFileDialog();
+            //ofd.Filter = "*.*|*.bmp;*.jpg;*.jpeg;*.tiff;*.tiff;*.png";
+            //if (ofd.ShowDialog() != DialogResult.Value) return;
+            //ofd.ShowDialog();
+            ofd.FileName = filename;
+            ofd2.FileName = filename2;
+            var imagebyte = File.ReadAllBytes(ofd.FileName);
+            var imagebyte2 = File.ReadAllBytes(ofd2.FileName);
+            Bitmap bitmap = new Bitmap(new MemoryStream(imagebyte));
+            Bitmap bitmap2 = new Bitmap(new MemoryStream(imagebyte2));
+
+            
+
+            //oCRParameter.use_gpu=1;当使用GPU版本的预测库时，该参数打开才有效果
+
+            OCRResult ocrResult = new OCRResult();
+            OCRResult ocrResult2 = new OCRResult();
+            
+                ocrResult = engine.DetectText(bitmap);
+                ocrResult2 = engine.DetectText(bitmap2);
+            if (ocrResult != null)
+            {
+                //MessageBox.Show(ocrResult.Text, "识别结果");
+                //MessageBox.Show(ocrResult2.Text, "识别结果");
+                GetNow(ocrResult.Text, ocrResult2.Text);
+            }
+        }
+        
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Adb.adb.StartAdb(); //调用ADB对模拟器画面进行截图并保存
+                Mat src = Cv2.ImRead("Adb\\screenshot.png", ImreadModes.AnyColor);
+                PreCut(src);    //裁剪对应图片
+                Ocr("Adb\\cut_1.png", "Adb\\cut_2.png");
+                //String value2 = Ocr("Adb\\cut_2.png");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
