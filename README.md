@@ -1,5 +1,5 @@
 # Arknights_Tool
-很烂的理智计算小工具
+理智计算小工具
 
 ## 界面预览
 ![image](https://github.com/KINOVE/Arknighs_Tool/blob/main/Arknights_Tool/images/1.png)
